@@ -1,0 +1,34 @@
+@model List<InventoryWeb.Models.Item>
+
+@{
+    ViewData["Title"] = "Inventory";
+}
+
+<h1>Inventory</h1>
+
+<form method="get">
+    <label>Filter by Category:</label>
+    <input type="text" name="category" value="@Context.Request.Query["category"]" />
+    <button type="submit">Filter</button>
+    <a href="/Inventory">Clear</a>
+</form>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th><a href="?sortBy=name&category=@Context.Request.Query["category"]">Name</a></th>
+        <th><a href="?sortBy=quantity&category=@Context.Request.Query["category"]">Quantity</a></th>
+        <th><a href="?sortBy=price&category=@Context.Request.Query["category"]">Price</a></th>
+        <th><a href="?sortBy=category&category=@Context.Request.Query["category"]">Category</a></th>
+    </tr>
+@foreach(var item in Model)
+{
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.Quantity</td>
+        <td>@item.Price</td>
+        <td>@item.Category</td>
+    </tr>
+}
+</table>
+
+<p><a href="/Inventory/Add">Add New Item</a></p>

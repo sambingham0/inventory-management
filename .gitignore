@@ -1,0 +1,63 @@
+
+
+# User-specific files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build artifacts
+bin/
+obj/
+publish/
+
+# Visual Studio Code workspace
+.vscode/
+
+# Rider
+.idea/
+
+# NuGet
+# Ignore packages folder if present (for legacy projects)
+packages/
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# OS generated files
+Thumbs.db
+.DS_Store
+
+# ASP.NET Core specific
+appsettings.Development.json
+secrets.json
+secrets.*.json
+
+# Local data and developer-provided sample/test files
+inventory.json
+
+# Generated static web assets and tooling caches
+**/staticwebassets.build.json
+**/staticwebassets.development.json
+**/staticwebassets.*.json
+
+# Logs
+*.log
+logs/
+
+# dotnet tool restore state
+.store/
+
+# Profiling
+*.psess
+*.vsp
+*.vspx
+
+# Xamarin
+*.apk
+*.apks
+
+wwwroot/lib/bootstrap/
+wwwroot/lib/

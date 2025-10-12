@@ -1,0 +1,29 @@
+@model InventoryWeb.Models.Item
+
+@{
+    ViewData["Title"] = "Add Item";
+}
+
+<h1>Add New Item</h1>
+
+<form method="post">
+    <p>
+        <label>Name:</label>
+        <input asp-for="Name" />
+    </p>
+    <p>
+        <label>Quantity:</label>
+        <input asp-for="Quantity" type="number" />
+    </p>
+    <p>
+        <label>Price:</label>
+        <input asp-for="Price" type="number" step="0.01" />
+    </p>
+    <p>
+        <label>Category:</label>
+        <input asp-for="Category" />
+    </p>
+    <button type="submit">Add Item</button>
+</form>
+
+<p><a href="/Inventory">Back to Inventory</a></p>
