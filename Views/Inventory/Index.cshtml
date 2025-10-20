@@ -6,6 +6,11 @@
 
 <h1>Inventory</h1>
 
+@if (TempData["Message"] is string msg)
+{
+    <div class="alert alert-success" role="alert">@msg</div>
+}
+
 <form method="get">
     <label>Filter by Category:</label>
     <input type="text" name="category" value="@Context.Request.Query["category"]" />
@@ -13,22 +18,26 @@
     <a href="/Inventory">Clear</a>
 </form>
 
-<table border="1" cellpadding="5">
-    <tr>
-        <th><a href="?sortBy=name&category=@Context.Request.Query["category"]">Name</a></th>
-        <th><a href="?sortBy=quantity&category=@Context.Request.Query["category"]">Quantity</a></th>
-        <th><a href="?sortBy=price&category=@Context.Request.Query["category"]">Price</a></th>
-        <th><a href="?sortBy=category&category=@Context.Request.Query["category"]">Category</a></th>
-    </tr>
-@foreach(var item in Model)
-{
-    <tr>
-        <td>@item.Name</td>
-        <td>@item.Quantity</td>
-        <td>@item.Price</td>
-        <td>@item.Category</td>
-    </tr>
-}
+<table class="table table-striped table-hover table-sm">
+    <thead>
+        <tr>
+            <th><a href="?sortBy=name&category=@Context.Request.Query["category"]">Name</a></th>
+            <th><a href="?sortBy=quantity&category=@Context.Request.Query["category"]">Quantity</a></th>
+            <th><a href="?sortBy=price&category=@Context.Request.Query["category"]">Price</a></th>
+            <th><a href="?sortBy=category&category=@Context.Request.Query["category"]">Category</a></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Quantity</td>
+            <td>@item.Price.ToString("C")</td>
+            <td>@item.Category</td>
+        </tr>
+    }
+    </tbody>
 </table>
 
 <p><a href="/Inventory/Add">Add New Item</a></p>

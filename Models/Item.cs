@@ -1,11 +1,23 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace InventoryWeb.Models
 {
     public class Item
     {
-        public string Name { get; set; }
+        [Required]
+        [StringLength(100)]
+        public string Name { get; set; } = string.Empty;
+
+        [Range(0, int.MaxValue)]
         public int Quantity { get; set; }
+
+        [Range(0, double.MaxValue)]
+        [DataType(DataType.Currency)]
         public decimal Price { get; set; }
-        public string Category { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string Category { get; set; } = string.Empty;
 
         public Item() { }
     
@@ -19,7 +31,7 @@ namespace InventoryWeb.Models
     
         public override string ToString()
         {
-            return $"({Category}) {Name} - Quantity: {Quantity}, Price: ${Price}";
+            return $"({Category}) {Name} - Quantity: {Quantity}, Price: {Price:C}";
         }
     }
 }

@@ -8,33 +8,35 @@ namespace InventoryWeb.Controllers
     {
         private readonly InventoryService _inventoryService;
 
-        public InventoryController()
+        public InventoryController(InventoryService inventoryService)
         {
-            _inventoryService = new InventoryService();
+            _inventoryService = inventoryService;
         }
 
         // GET: /Inventory
-        public IActionResult Index(string category = null, string sortBy = null)
+        public IActionResult Index(string? category, string? sortBy)
         {
             var items = _inventoryService.GetAll();
 
             // Optional filtering by category
-            if (!string.IsNullOrEmpty(category))
+            if (!string.IsNullOrWhiteSpace(category))
             {
+                var cat = category.Trim();
                 items = items
-                    .Where(i => i.Category.Equals(category, StringComparison.OrdinalIgnoreCase))
+                    .Where(i => string.Equals(i.Category, cat, StringComparison.OrdinalIgnoreCase))
                     .ToList();
             }
 
             // Optional sorting
-            if (!string.IsNullOrEmpty(sortBy))
+            if (!string.IsNullOrWhiteSpace(sortBy))
             {
-                items = sortBy.ToLower() switch
+                var sort = sortBy.Trim().ToLowerInvariant();
+                items = sort switch
                 {
-                    "name" => items.OrderBy(i => i.Name).ToList(),
+                    "name" => items.OrderBy(i => i.Name, StringComparer.OrdinalIgnoreCase).ToList(),
                     "quantity" => items.OrderBy(i => i.Quantity).ToList(),
                     "price" => items.OrderBy(i => i.Price).ToList(),
-                    "category" => items.OrderBy(i => i.Category).ToList(),
+                    "category" => items.OrderBy(i => i.Category, StringComparer.OrdinalIgnoreCase).ToList(),
                     _ => items
                 };
             }
@@ -50,11 +52,13 @@ namespace InventoryWeb.Controllers
 
         // POST: /Inventory/Add
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Add(Item item)
         {
             if (ModelState.IsValid)
             {
                 _inventoryService.AddItem(item);
+                TempData["Message"] = $"Added {item.Name}.";
                 return RedirectToAction("Index");
             }
             return View(item);

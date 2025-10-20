@@ -1,2 +1,3 @@
-# InventoryWeb
-ASP.NET Core MVC application for managing an inventory. This project targets .NET 9.0 and uses controllers + views (Razor).
+# Inventory Management App
+
+ASP.NET Core MVC app for inventory management with Razor views and a JSON storage.
